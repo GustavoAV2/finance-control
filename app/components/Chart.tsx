@@ -1,14 +1,21 @@
 "use client";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as echarts from 'echarts';
 
 interface ChartProps {
+  debt: number;
+  total: number;
   title: string;
-  totalValue: number;
-  debts: number;
 }
 
-const Chart: React.FC<ChartProps> = ({ title, totalValue, debts }) => {
+interface Transaction {
+  Id: number;
+  Description: string;
+  Debt: number;
+  TypeId: number;
+}
+
+const Chart: React.FC<ChartProps> = ({ debt, total, title }) => {
   useEffect(() => {
     const initChart = () => {
       const chartDom = document.getElementById(`${title}-chart`);
@@ -48,8 +55,8 @@ const Chart: React.FC<ChartProps> = ({ title, totalValue, debts }) => {
                 show: false
               },
               data: [
-                { value: debts, name: 'Debts' },
-                { value: totalValue, name: 'Rest value' }
+                { value: debt, name: 'Debts' },
+                { value: total, name: 'Remaining Value' }
               ]
             }
           ]
@@ -61,7 +68,7 @@ const Chart: React.FC<ChartProps> = ({ title, totalValue, debts }) => {
     };
 
     initChart();
-  }, [title, totalValue, debts]);
+  }, [debt, total, title]);
 
   return (
     <div className="flex-col text-center">

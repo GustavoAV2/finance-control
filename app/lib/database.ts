@@ -13,7 +13,7 @@ export const insertTransaction = (description: string, debt: number, typeId: num
 };
 
 // Função para obter transações por tipo
-export const getTransactionsByType = (typeId: number) => {
+export const getTransactionsByType = (typeId: string) => {
   const stmt = db.prepare(`
     SELECT * FROM expenseRecord
     WHERE TypeId = ?

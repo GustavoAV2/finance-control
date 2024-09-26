@@ -1,7 +1,8 @@
 export enum TransactionTypeEnum {
-    Health = 'Health',
-    Study = 'Study',
-    Transport = 'Transport',
-    Leisure = 'Leisure',
-    Food = 'Food',
+    Health = "2",
+    Study = "3",
+    Transport = "4",
+    Leisure = "5",
+    Food = "6",
+    Home = "7"
   }

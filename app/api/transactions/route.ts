@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { insertTransaction, getAllTransactionTypes } from '../../lib/database';
+import { insertTransaction, getAllTransactionTypes, getTransactionsByType } from '../../lib/database';
 
 export async function POST(req: NextRequest) {
   try {
-    const { description, value, debt, typeId } = await req.json();
-    await insertTransaction(description, value, debt, typeId);
+    const { description, debt, typeId } = await req.json();
+    await insertTransaction(description, debt, typeId);
     return NextResponse.json({ message: 'Transaction added successfully' }, { status: 200 });
   } catch (error) {
     console.log(error);
@@ -12,9 +12,13 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    const types = await getAllTransactionTypes();
+    var typeId = req.nextUrl.searchParams.get('typeId');
+    var types = [];
+    if (typeId){
+      types = await getTransactionsByType(typeId);
+    }
     return NextResponse.json(types, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch transaction types' }, { status: 500 });
