@@ -8,13 +8,6 @@ interface ChartProps {
   title: string;
 }
 
-interface Transaction {
-  Id: number;
-  Description: string;
-  Debt: number;
-  TypeId: number;
-}
-
 const Chart: React.FC<ChartProps> = ({ debt, total, title }) => {
   useEffect(() => {
     const initChart = () => {
@@ -56,7 +49,7 @@ const Chart: React.FC<ChartProps> = ({ debt, total, title }) => {
               },
               data: [
                 { value: debt, name: 'Debts' },
-                { value: total, name: 'Remaining Value' }
+                { value: total - debt, name: 'Remaining Value' }
               ]
             }
           ]

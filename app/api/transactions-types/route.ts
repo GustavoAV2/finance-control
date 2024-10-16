@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { insertTransaction, getAllTransactionTypes, getTransactionsByType } from '../../lib/database';
+import { insertTransaction, getTransactionsByType } from '../../lib/database';
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
   try {
     var typeId = req.nextUrl.searchParams.get('typeId');
     var types = [];
-    if (typeId){
+    if (typeId) {
       types = await getTransactionsByType(typeId);
     }
     return NextResponse.json(types, { status: 200 });

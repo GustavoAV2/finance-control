@@ -59,3 +59,27 @@ export async function fetchAllTransactions() {
     return 0; // Retorna 0 em caso de erro
   }
 }
+
+export async function deleteAllTransactions() {
+  try {
+    // Construindo a URL absoluta
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const url = `${baseUrl}/api/transactions`;
+
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      console.error(`Failed to fetch transactions: ${response.status} - ${response.statusText}`);
+      return 0;
+    }
+    return 1;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return 0;
+  }
+}

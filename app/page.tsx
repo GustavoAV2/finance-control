@@ -1,6 +1,6 @@
 import { getServerAuthSession } from "./auth";
 import { TransactionTypeEnum } from "./components/TransactionTypesEnum";
-import UserInfo from "./components/UserInfo";
+import Header from "./components/Header";
 import TButton from "./components/TransactionButton";
 import Wallet from "./components/Wallet";
 import { fetchTransactionByType } from "./lib/fetch";
@@ -40,9 +40,9 @@ export default async function HomePage() {
   return (  
     <main className="flex h-screen">
       {authSession?.user ? (
-        <div className="flex-col">
+        <div>
           <div>
-            <UserInfo user={authSession.user} />
+            <Header user={authSession.user} />
             <div className='flex justify-between'>
               <Wallet className="ml-2 mt-1" />
               <div className="mt-1 mr-1">
@@ -61,7 +61,7 @@ export default async function HomePage() {
             />
           </div>
 
-          <div className="flex flex-wrap">
+          <div className="flex flex-col md:flex-wrap md:flex-row">
             <Chart title='Food' debt={foodDebt} total={1500} />
             <Chart title='Leisure' debt={leisureDebt} total={1500} />
             <Chart title='Transport' debt={transportDebt} total={1500} />

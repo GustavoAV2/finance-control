@@ -22,12 +22,21 @@ export const getTransactionsByType = (typeId: string) => {
 };
 
 // Função para obter todos os tipos de transações
-export const getAllTransactionTypes = () => {
+export const getAllTransactions = () => {
   const stmt = db.prepare(`
-    SELECT * FROM typeTransaction
+    SELECT * FROM expenseRecord
   `);
   return stmt.all();
 };
+
+// Função para obter todos os tipos de transações
+export const deleteAllTransactions = () => {
+  const stmt = db.prepare(`
+    DELETE FROM expenseRecord
+  `);
+  return stmt.all();
+};
+
 
 // Função para adicionar um novo tipo de transação
 export const addTransactionType = (descricao: string) => {
