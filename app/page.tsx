@@ -3,7 +3,7 @@ import { TransactionTypeEnum } from "./components/TransactionTypesEnum";
 import UserInfo from "./components/UserInfo";
 import TButton from "./components/TransactionButton";
 import Wallet from "./components/Wallet";
-import { fetchData } from "./lib/fetch";
+import { fetchTransactionByType } from "./lib/fetch";
 import CompleteChart from "./components/CompleteChart";
 import Chart from "./components/Chart";
 import Link from "next/link";
@@ -19,11 +19,11 @@ export default async function HomePage() {
   // Execute as chamadas em paralelo
   try {
     const [food, leisure, transport, study, health] = await Promise.all([
-      fetchData(parseInt(TransactionTypeEnum.Food)),
-      fetchData(parseInt(TransactionTypeEnum.Leisure)),
-      fetchData(parseInt(TransactionTypeEnum.Transport)),
-      fetchData(parseInt(TransactionTypeEnum.Study)),
-      fetchData(parseInt(TransactionTypeEnum.Health))
+      fetchTransactionByType(parseInt(TransactionTypeEnum.Food)),
+      fetchTransactionByType(parseInt(TransactionTypeEnum.Leisure)),
+      fetchTransactionByType(parseInt(TransactionTypeEnum.Transport)),
+      fetchTransactionByType(parseInt(TransactionTypeEnum.Study)),
+      fetchTransactionByType(parseInt(TransactionTypeEnum.Health))
     ]);
 
     // Atribua os resultados e garanta valores válidos
