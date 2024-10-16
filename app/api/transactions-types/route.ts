@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     var typeId = req.nextUrl.searchParams.get('typeId');
-    var types = [];
+    var types: any[] = [];
     if (typeId) {
       types = await getTransactionsByType(typeId);
     }
