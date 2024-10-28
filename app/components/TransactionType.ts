@@ -1,8 +1,8 @@
 export class TransactionType {
-    Id: number;
+    Id: string;
     Descricao: string;
   
-    constructor(Id: number, Descricao: string) {
+    constructor(Id: string, Descricao: string) {
       this.Id = Id;
       this.Descricao = Descricao;
     }

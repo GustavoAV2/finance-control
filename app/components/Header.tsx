@@ -44,7 +44,7 @@ export default function Header({ user }: UserInfoProps) {
         Manage
       </div>
       
-      <button className="font-medium text-blue-600 hover:underline" onClick={handleLogout}>
+      <button className="font-medium text-red-600 hover:underline" onClick={handleLogout}>
         Log out
       </button>
     </div>

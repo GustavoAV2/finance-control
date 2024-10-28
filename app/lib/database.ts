@@ -34,7 +34,7 @@ export const deleteAllTransactions = () => {
   const stmt = db.prepare(`
     DELETE FROM expenseRecord
   `);
-  return stmt.all();
+  return stmt.run();
 };
 
 
@@ -46,3 +46,12 @@ export const addTransactionType = (descricao: string) => {
   `);
   return stmt.run(descricao);
 };
+
+
+export const getAllTransactionType = () => {
+  const stmt = db.prepare(`
+    SELECT * FROM typeTransaction
+  `);
+  return stmt.all();
+};
+

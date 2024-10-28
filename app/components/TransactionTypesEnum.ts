@@ -1,3 +1,5 @@
+import { TransactionType } from "./TransactionType";
+
 export enum TransactionTypeEnum {
   Health = "2",
   Study = "3",
@@ -13,4 +15,10 @@ export function intToTransactionTypeEnum(value: number): TransactionTypeEnum | u
   );
 
   return transactionType as TransactionTypeEnum | undefined;
+}
+
+export function transformEnumToTransactionTypes(): TransactionType[] {
+  return Object.entries(TransactionTypeEnum).map(([key, value]) => {
+    return new TransactionType(value, key);
+  });
 }

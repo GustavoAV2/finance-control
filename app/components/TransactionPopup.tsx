@@ -1,7 +1,7 @@
 // components/TransactionPopup.tsx
 import React, { useState, useEffect } from 'react';
 import { TransactionType } from './TransactionType';
-import { TransactionTypeEnum } from './TransactionTypesEnum';
+import { intToTransactionTypeEnum, TransactionTypeEnum } from './TransactionTypesEnum';
 
 interface TransactionPopupProps {
   isOpen: boolean;
@@ -13,21 +13,23 @@ const TransactionPopup: React.FC<TransactionPopupProps> = ({ isOpen, onClose }) 
     title: '',
     amount: 0,
     debt: 0,
-    type: TransactionTypeEnum.Health, // Default value
+    type: "Health", // Default value
   });
   const [transactionTypes, setTransactionTypes] = useState<TransactionType[]>([]);
 
   useEffect(() => {
     if (isOpen) {
       // Fetch transaction types on open
-      fetch('/api/transactions')
+      fetch('/api/transactions-type')
         .then(response => response.json())
         .then(data => {
-          const types = data.reduce((acc: TransactionType[], type: { Id: number; Descricao: string }) => {
+          console.log(data);
+          const types = data.reduce((acc: TransactionType[], type: { Id: string; Descricao: string }) => {
             acc.push({ Id: type.Id, Descricao: type.Descricao });
             return acc;
           }, []);
           setTransactionTypes(types);
+          console.log(types);
         });
     }
   }, [isOpen]);
@@ -98,14 +100,14 @@ const TransactionPopup: React.FC<TransactionPopupProps> = ({ isOpen, onClose }) 
             <label className="block text-sm font-medium mb-1">Type</label>
             <select
               name="type"
-              value={transaction.type}
+              value={intToTransactionTypeEnum(parseInt(transaction.type))}
               onChange={handleChange}
               className="border border-gray-300 p-2 w-full rounded"
               required
             >
-              {Object.values(TransactionTypeEnum).map(type => (
-                <option key={type} value={type}>
-                  {type}
+              {transactionTypes.map((type) => (
+                <option key={type.Id} value={type.Id}>
+                  {type.Descricao}
                 </option>
               ))}
             </select>

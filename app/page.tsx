@@ -6,10 +6,15 @@ import Wallet from "./components/Wallet";
 import { fetchTransactionByType } from "./lib/fetch";
 import CompleteChart from "./components/CompleteChart";
 import Chart from "./components/Chart";
-import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function HomePage() {
   const authSession = await getServerAuthSession(); 
+
+  if (!authSession?.user) {
+    redirect("/login");
+  }
+
   let foodDebt = 0;
   let leisureDebt = 0;
   let transportDebt = 0;
@@ -39,7 +44,6 @@ export default async function HomePage() {
   console.log(authSession);
   return (  
     <main className="flex h-screen">
-      {authSession?.user ? (
         <div>
           <div>
             <Header user={authSession.user} />
@@ -61,7 +65,7 @@ export default async function HomePage() {
             />
           </div>
 
-          <div className="flex flex-col md:flex-wrap md:flex-row">
+          <div className="flex flex-col md:flex-wrap md:flex-row justify-center">
             <Chart title='Food' debt={foodDebt} total={1500} />
             <Chart title='Leisure' debt={leisureDebt} total={1500} />
             <Chart title='Transport' debt={transportDebt} total={1500} />
@@ -69,11 +73,6 @@ export default async function HomePage() {
             <Chart title='Health' debt={healthDebt} total={1500} />
           </div>
         </div>
-      ) : (
-        <Link className="font-medium mt-2 text-blue-600 hover:underline" href="/login">
-          Login
-        </Link>
-      )}
     </main>
   );
 }

@@ -9,7 +9,7 @@ export async function fetchTransactionByType(typeId: number) {
   try {
     // Construindo a URL absoluta
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const url = `${baseUrl}/api/transactions-types?typeId=${typeId}`;
+    const url = `${baseUrl}/api/transactions-by-type?typeId=${typeId}`;
 
     const response = await fetch(url, {
       method: 'GET',

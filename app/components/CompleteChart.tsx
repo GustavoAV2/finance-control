@@ -11,6 +11,7 @@ interface ChartProps {
 }
 
 const Chart: React.FC<ChartProps> = ({ foodDebt, leisureDebt, transportDebt, studyDebt, healthDebt }) => {
+  let totalChart = 6000 - (foodDebt + leisureDebt + transportDebt + studyDebt + healthDebt );
   useEffect(() => {
     const initChart = () => {
       const chartDom = document.getElementById(`total-chart`);
@@ -50,6 +51,7 @@ const Chart: React.FC<ChartProps> = ({ foodDebt, leisureDebt, transportDebt, stu
                 show: false
               },
               data: [
+                { value: totalChart, name: 'Rest Value' },
                 { value: foodDebt, name: 'Food' },
                 { value: leisureDebt, name: 'Leisure' },
                 { value: transportDebt, name: 'Transport' },
