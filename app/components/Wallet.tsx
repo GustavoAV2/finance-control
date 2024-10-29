@@ -5,7 +5,7 @@ interface WalletProps {
   const Wallet: React.FC<WalletProps> = ({ className }) => {
     const wallet = 6000;
     return (
-      <div className={`flex w-max ${className}`}>
+      <div className={`flex ${className}`}>
         <h1 className="text-3xl">Wallet: {wallet}</h1>
       </div>
     );

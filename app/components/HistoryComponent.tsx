@@ -29,8 +29,8 @@ const HistoryComponent: React.FC<HistoryComponentProps> = ({ transactions }) => 
   };
 
   return (
-    <div className="flex justify-center w-full">
-      <div className="mr-4">
+    <div className="flex flex-col md:flex-row justify-center w-full">
+      <div className="md:mr-4 m-4">
         <label className="block text-sm font-medium mb-1">Type</label>
 
         <select

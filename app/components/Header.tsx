@@ -28,7 +28,7 @@ export default function Header({ user }: UserInfoProps) {
 
   return(
    <div className=" flex justify-between rounded-lg border shadow-lg p-3">
-      <div>
+      <div className="md:flex hidden">
         Name : {user.name}
       </div>
 

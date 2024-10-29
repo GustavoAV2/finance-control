@@ -12,7 +12,16 @@ interface ChartProps {
 
 const Chart: React.FC<ChartProps> = ({ foodDebt, leisureDebt, transportDebt, studyDebt, healthDebt }) => {
   let totalChart = 6000 - (foodDebt + leisureDebt + transportDebt + studyDebt + healthDebt );
+  var chartHeight = '600px';
+  var chartWidth = '600px';
+  
   useEffect(() => {
+
+    if (window.screen.width > 900){
+      chartHeight = '400px';
+      chartWidth = '400px';
+    }
+
     const initChart = () => {
       const chartDom = document.getElementById(`total-chart`);
       if (chartDom) {
@@ -73,7 +82,7 @@ const Chart: React.FC<ChartProps> = ({ foodDebt, leisureDebt, transportDebt, stu
   return (
     <div className="flex-col text-center">
       <h1 className="text-2xl">Total</h1>
-      <div id="total-chart" className="flex" style={{ height: '600px', width: '600px' }}></div>
+      <div id="total-chart" className="flex" style={{ height: chartHeight , width: chartWidth }}></div>
     </div>
   );
 };

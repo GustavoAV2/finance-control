@@ -9,7 +9,15 @@ interface ChartProps {
 }
 
 const Chart: React.FC<ChartProps> = ({ debt, total, title }) => {
+  var chartHeight = '600px';
+  var chartWidth = '600px';
+
   useEffect(() => {
+    if (window.screen.width > 900){
+      chartHeight = '400px';
+      chartWidth = '400px';
+    }
+
     const initChart = () => {
       const chartDom = document.getElementById(`${title}-chart`);
       if (chartDom) {
@@ -66,7 +74,7 @@ const Chart: React.FC<ChartProps> = ({ debt, total, title }) => {
   return (
     <div className="flex-col text-center">
       <h1 className="text-2xl">{title}</h1>
-      <div id={`${title}-chart`} className="flex" style={{ height: '600px', width: '600px' }}></div>
+      <div id={`${title}-chart`} className="flex " style={{ height: chartHeight, width: chartWidth }}></div>
     </div>
   );
 };
