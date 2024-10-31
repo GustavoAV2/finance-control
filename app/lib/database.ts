@@ -1,57 +1,58 @@
-// lib/database.ts
-import Database from 'better-sqlite3';
+// lib/db.js
+import { Pool } from 'pg';
 
-const db = new Database('finance.db');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+
+export const query = (text: string, params: any) => pool.query(text, params);
 
 // Função para inserir uma transação
 export const insertTransaction = (description: string, debt: number, typeId: number) => {
-  const stmt = db.prepare(`
+  return query(`
     INSERT INTO expenseRecord (Description, Debt, TypeId)
     VALUES (?, ?, ?)
-  `);
-  return stmt.run(description, debt, typeId);
+  `, [description, debt, typeId]);
 };
 
 // Função para obter transações por tipo
 export const getTransactionsByType = (typeId: string) => {
-  const stmt = db.prepare(`
+  return query(`
     SELECT * FROM expenseRecord
     WHERE TypeId = ?
-  `);
-  return stmt.all(typeId);
+  `, [typeId]);
 };
 
 // Função para obter todos os tipos de transações
 export const getAllTransactions = () => {
-  const stmt = db.prepare(`
+  return query(`
     SELECT * FROM expenseRecord
-  `);
-  return stmt.all();
+  `, []);
 };
 
 // Função para obter todos os tipos de transações
 export const deleteAllTransactions = () => {
-  const stmt = db.prepare(`
+  return query(`
     DELETE FROM expenseRecord
-  `);
-  return stmt.run();
+  `, []);
 };
 
 
 // Função para adicionar um novo tipo de transação
 export const addTransactionType = (descricao: string) => {
-  const stmt = db.prepare(`
+  return query(`
     INSERT INTO typeTransaction (Descricao)
     VALUES (?)
-  `);
-  return stmt.run(descricao);
+  `, [descricao]);
 };
 
 
 export const getAllTransactionType = () => {
-  const stmt = db.prepare(`
+  return query(`
     SELECT * FROM typeTransaction
-  `);
-  return stmt.all();
+  `, []);
 };
 
